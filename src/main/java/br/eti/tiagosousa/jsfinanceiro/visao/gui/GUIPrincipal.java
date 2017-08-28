@@ -3,8 +3,8 @@ package br.eti.tiagosousa.jsfinanceiro.visao.gui;
 import javax.swing.JFrame;
 
 /**
- * @data 27/08/2017
  * @author Tiago Sousa
+ * 27/08/2017
  * www.tiagosousa.eti.br
  */
 public class GUIPrincipal extends javax.swing.JFrame {
@@ -29,7 +29,7 @@ public class GUIPrincipal extends javax.swing.JFrame {
         itemDeMenuSobre = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("JS - Financeiro");
+        setTitle("Financeiro");
 
         menuArquivo.setMnemonic('f');
         menuArquivo.setText("Arquivo");
@@ -59,6 +59,11 @@ public class GUIPrincipal extends javax.swing.JFrame {
 
         itemDeMenuSobre.setMnemonic('a');
         itemDeMenuSobre.setText("Sobre");
+        itemDeMenuSobre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemDeMenuSobreActionPerformed(evt);
+            }
+        });
         menuAjuda.add(itemDeMenuSobre);
 
         menuBar.add(menuAjuda);
@@ -82,6 +87,15 @@ public class GUIPrincipal extends javax.swing.JFrame {
     private void itemDeMenuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemDeMenuSairActionPerformed
         System.exit(0);
     }//GEN-LAST:event_itemDeMenuSairActionPerformed
+
+    private void itemDeMenuSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemDeMenuSobreActionPerformed
+        if ((guiSobre == null) || (!guiSobre.isVisible())) {
+            guiSobre = new GUISobre();
+            desktopPane.add(guiSobre);
+            guiSobre.setPosicao();
+            guiSobre.setVisible(true);
+        }
+    }//GEN-LAST:event_itemDeMenuSobreActionPerformed
 
     public static void main(String args[]) {
         try {
@@ -119,4 +133,5 @@ public class GUIPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar menuBar;
     // End of variables declaration//GEN-END:variables
 
+    private GUISobre guiSobre;
 }

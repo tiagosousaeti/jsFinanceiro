@@ -3,8 +3,8 @@ package br.eti.tiagosousa.jsfinanceiro;
 import br.eti.tiagosousa.jsfinanceiro.visao.gui.GUIPrincipal;
 
 /**
- * @data 27/08/2017
  * @author Tiago Sousa
+ * 27/08/2017
  * www.tiagosousa.eti.br
  */
 public class Principal {
