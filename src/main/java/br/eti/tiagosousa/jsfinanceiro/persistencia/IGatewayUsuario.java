@@ -5,7 +5,7 @@ import br.eti.tiagosousa.jsfinanceiro.modelo.dominio.Usuario;
 
 /**
  * @author Tiago Sousa
- * 28/08/2017
+ * 29/08/2017
  * www.tiagosousa.eti.br
  */
 public interface IGatewayUsuario {

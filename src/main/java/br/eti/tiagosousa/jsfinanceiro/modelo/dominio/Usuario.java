@@ -8,7 +8,7 @@ import br.eti.tiagosousa.jsfinanceiro.excecao.JsFinanceiroException;
  * www.tiagosousa.eti.br
  */
 public class Usuario {
-    private Integer id;
+    private long id;
     private String usuario;
     private String email;
     private String senha;
@@ -18,11 +18,11 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Integer getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(long id) {
         this.id = id;
     }
 

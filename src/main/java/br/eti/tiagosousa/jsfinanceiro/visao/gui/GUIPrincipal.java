@@ -1,5 +1,6 @@
 package br.eti.tiagosousa.jsfinanceiro.visao.gui;
 
+import java.beans.PropertyVetoException;
 import javax.swing.JFrame;
 
 /**
@@ -25,6 +26,8 @@ public class GUIPrincipal extends javax.swing.JFrame {
         itemDeMenuExportar = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         itemDeMenuSair = new javax.swing.JMenuItem();
+        menuCadastro = new javax.swing.JMenu();
+        itemDeMenuUsuario = new javax.swing.JMenuItem();
         menuAjuda = new javax.swing.JMenu();
         itemDeMenuSobre = new javax.swing.JMenuItem();
 
@@ -53,6 +56,18 @@ public class GUIPrincipal extends javax.swing.JFrame {
         menuArquivo.add(itemDeMenuSair);
 
         menuBar.add(menuArquivo);
+
+        menuCadastro.setText("Cadastro");
+
+        itemDeMenuUsuario.setText("Usuarios");
+        itemDeMenuUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemDeMenuUsuarioActionPerformed(evt);
+            }
+        });
+        menuCadastro.add(itemDeMenuUsuario);
+
+        menuBar.add(menuCadastro);
 
         menuAjuda.setMnemonic('h');
         menuAjuda.setText("Ajuda");
@@ -97,6 +112,23 @@ public class GUIPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_itemDeMenuSobreActionPerformed
 
+    private void itemDeMenuUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemDeMenuUsuarioActionPerformed
+        if ((guiUsuarios == null) || (!guiUsuarios.isVisible())) {
+            guiUsuarios = new GUIUsuarios();
+            desktopPane.add(guiUsuarios);
+            guiUsuarios.setPosicao();
+            guiUsuarios.setVisible(true);
+        }
+        try {
+            guiUsuarios.setSelected(true);
+        } catch (PropertyVetoException exc) {
+            StringBuilder mensagem = new StringBuilder();
+            mensagem.append("Não foi possível selecionar a janela!");
+            mensagem.append("\nMotivo: " + exc.getMessage());
+            GUIMensagem.exibirMensagem(mensagem.toString(), "Financeiro - Usuários", true);
+        }
+    }//GEN-LAST:event_itemDeMenuUsuarioActionPerformed
+
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -127,11 +159,14 @@ public class GUIPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemDeMenuImportar;
     private javax.swing.JMenuItem itemDeMenuSair;
     private javax.swing.JMenuItem itemDeMenuSobre;
+    private javax.swing.JMenuItem itemDeMenuUsuario;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenu menuAjuda;
     private javax.swing.JMenu menuArquivo;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenu menuCadastro;
     // End of variables declaration//GEN-END:variables
 
     private GUISobre guiSobre;
+    private GUIUsuarios guiUsuarios;
 }

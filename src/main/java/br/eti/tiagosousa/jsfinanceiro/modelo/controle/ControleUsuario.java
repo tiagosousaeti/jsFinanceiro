@@ -8,11 +8,11 @@ import br.eti.tiagosousa.jsfinanceiro.persistencia.impl.FabricaPersistencia;
 
 /**
  * @author Tiago Sousa
- * 28/08/2017
+ * 29/08/2017
  * www.tiagosousa.eti.br
  */
 public class ControleUsuario {
-    public void gravarSocio(Usuario usuario) throws JsFinanceiroException {
+    public void gravarUsuario(Usuario usuario) throws JsFinanceiroException {
         IFabricaPersistencia fabricaPersistencia = new FabricaPersistencia();
         IGatewayUsuario gatewayUsuario = fabricaPersistencia.getGatewayUsuario();
         gatewayUsuario.gravarUsuario(usuario);
