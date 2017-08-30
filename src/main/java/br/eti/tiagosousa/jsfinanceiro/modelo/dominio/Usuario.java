@@ -12,8 +12,8 @@ public class Usuario {
     private String usuario;
     private String email;
     private String senha;
-    private String nivel;
-    private String status;
+    private Integer nivel;
+    private Integer status;
 
     public Usuario() {
     }
@@ -54,19 +54,19 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public String getNivel() {
+    public Integer getNivel() {
         return nivel;
     }
 
-    public void setNivel(String nivel) {
+    public void setNivel(Integer nivel) {
         this.nivel = nivel;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
         
