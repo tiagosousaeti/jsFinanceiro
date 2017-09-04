@@ -14,15 +14,14 @@ import java.awt.event.ActionListener;
  * www.tiagosousa.eti.br
  */
 public class OuvinteDeGUICadastroDeUsuario {
-    private GUICadastroDeUsuario guiCadastroDeUsuario;
+    private final GUICadastroDeUsuario guiCadastroDeUsuario;
 
     public OuvinteDeGUICadastroDeUsuario(GUICadastroDeUsuario guiCadastroDeUsuario) {
         this.guiCadastroDeUsuario = guiCadastroDeUsuario;
         guiCadastroDeUsuario.bGravarUsuarioAddActionListener(new OuvinteGravarUsuario());
     }
     
-    class OuvinteGravarUsuario implements ActionListener {
-        
+    class OuvinteGravarUsuario implements ActionListener {        
         @Override
         public void actionPerformed(ActionEvent e) {
             Usuario usuario;

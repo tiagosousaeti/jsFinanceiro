@@ -50,4 +50,10 @@ public class ControleUsuario {
         IFabricaPersistencia fabricaPersistencia = new FabricaPersistencia();
         this.pesquisador = fabricaPersistencia.getPesquisadorDeUsuario();
     }
+    
+    public void excluirUsuario(Usuario usuario) throws JsFinanceiroException {
+        IFabricaPersistencia fabricaPersistencia = new FabricaPersistencia();
+        IGatewayUsuario gatewayUsuario = fabricaPersistencia.getGatewayUsuario();
+        gatewayUsuario.excluirUsuario(usuario);
+    }
 }

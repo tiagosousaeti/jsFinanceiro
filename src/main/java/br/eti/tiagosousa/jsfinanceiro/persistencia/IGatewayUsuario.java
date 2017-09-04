@@ -10,4 +10,5 @@ import br.eti.tiagosousa.jsfinanceiro.modelo.dominio.Usuario;
  */
 public interface IGatewayUsuario {
     public abstract void gravarUsuario(Usuario usuario) throws JsFinanceiroException;
+    public abstract void excluirUsuario(Usuario usuario) throws JsFinanceiroException;
 }

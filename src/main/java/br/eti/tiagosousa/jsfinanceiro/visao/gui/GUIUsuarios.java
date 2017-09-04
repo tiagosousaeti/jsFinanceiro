@@ -1,5 +1,6 @@
 package br.eti.tiagosousa.jsfinanceiro.visao.gui;
 
+import br.eti.tiagosousa.jsfinanceiro.excecao.JsFinanceiroException;
 import br.eti.tiagosousa.jsfinanceiro.modelo.dominio.Usuario;
 import br.eti.tiagosousa.jsfinanceiro.modelo.dominio.constante.Constante;
 import br.eti.tiagosousa.jsfinanceiro.visao.ouvinte.OuvinteDeGUICadastroDeUsuario;
@@ -8,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,7 +30,7 @@ public class GUIUsuarios extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tUsuarios = new javax.swing.JTable();
         bNovoUsuario = new javax.swing.JButton();
-        bExcluir = new javax.swing.JButton();
+        bExcluirUsuario = new javax.swing.JButton();
         bAlterar = new javax.swing.JButton();
         pPesquisarUsuario = new javax.swing.JPanel();
         lUsuario = new javax.swing.JLabel();
@@ -56,12 +58,7 @@ public class GUIUsuarios extends javax.swing.JInternalFrame {
             }
         });
 
-        bExcluir.setText("Excluir");
-        bExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bExcluirActionPerformed(evt);
-            }
-        });
+        bExcluirUsuario.setText("Excluir");
 
         bAlterar.setText("Alterar");
         bAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -115,7 +112,7 @@ public class GUIUsuarios extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(bAlterar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(bExcluir))
+                        .addComponent(bExcluirUsuario))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(pPesquisarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -128,7 +125,7 @@ public class GUIUsuarios extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bNovoUsuario)
                     .addComponent(bAlterar)
-                    .addComponent(bExcluir))
+                    .addComponent(bExcluirUsuario))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -146,17 +143,19 @@ public class GUIUsuarios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_bNovoUsuarioActionPerformed
 
     private void bAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAlterarActionPerformed
-        // TODO add your handling code here:
+        Usuario usuario = null;
+        try {
+            usuario = this.getUsuarios();
+            this.abrirGUICadastroDeUsuario(usuario);
+        } catch (JsFinanceiroException ex) {
+            GUIMensagem.exibirMensagem(ex.getMessage(), "Financeiro - Usuários", true);
+        }
     }//GEN-LAST:event_bAlterarActionPerformed
-
-    private void bExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExcluirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bExcluirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAlterar;
-    private javax.swing.JButton bExcluir;
+    private javax.swing.JButton bExcluirUsuario;
     private javax.swing.JButton bNovoUsuario;
     private javax.swing.JButton bPesquisarUsuario;
     private javax.swing.JScrollPane jScrollPane1;
@@ -222,5 +221,24 @@ public class GUIUsuarios extends javax.swing.JInternalFrame {
     
     public void bPesquisarUsuarioAddActionListener(ActionListener ouvinte) {
         bPesquisarUsuario.addActionListener(ouvinte);
+    }
+    
+    public Usuario getUsuarios() throws JsFinanceiroException {
+        Usuario usuario = null;
+        int linhaSelecionada = tUsuarios.getSelectedRow();
+        if (linhaSelecionada < 0) {
+            throw new JsFinanceiroException("Não foi selecionado nenhum sócio");
+        }
+        usuario = (Usuario) this.usuarios.get(linhaSelecionada);
+        return usuario;
+    }
+    
+    public int pedirConfirmacao(String mensagem, String titulo, int tipo) {
+        int resposta = JOptionPane.showConfirmDialog(null, mensagem, titulo, tipo);
+        return resposta;
+    }
+    
+    public void bExcluirUsuarioAddActionListener(ActionListener ouvinte) {
+        bExcluirUsuario.addActionListener(ouvinte);
     }
 }
