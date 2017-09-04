@@ -1,5 +1,6 @@
 package br.eti.tiagosousa.jsfinanceiro.visao.gui;
 
+import br.eti.tiagosousa.jsfinanceiro.visao.ouvinte.OuvinteDeGUIUsuarios;
 import java.beans.PropertyVetoException;
 import javax.swing.JFrame;
 
@@ -115,6 +116,7 @@ public class GUIPrincipal extends javax.swing.JFrame {
     private void itemDeMenuUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemDeMenuUsuarioActionPerformed
         if ((guiUsuarios == null) || (!guiUsuarios.isVisible())) {
             guiUsuarios = new GUIUsuarios();
+            OuvinteDeGUIUsuarios ouvinte = new OuvinteDeGUIUsuarios(guiUsuarios);
             desktopPane.add(guiUsuarios);
             guiUsuarios.setPosicao();
             guiUsuarios.setVisible(true);

@@ -7,4 +7,5 @@ package br.eti.tiagosousa.jsfinanceiro.persistencia;
  */
 public interface IFabricaPersistencia {
     public IGatewayUsuario getGatewayUsuario();
+    public IPesquisadorDeUsuario getPesquisadorDeUsuario();
 }

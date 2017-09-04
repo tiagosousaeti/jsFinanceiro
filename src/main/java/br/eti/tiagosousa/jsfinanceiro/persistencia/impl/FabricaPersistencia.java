@@ -2,6 +2,7 @@ package br.eti.tiagosousa.jsfinanceiro.persistencia.impl;
 
 import br.eti.tiagosousa.jsfinanceiro.persistencia.IFabricaPersistencia;
 import br.eti.tiagosousa.jsfinanceiro.persistencia.IGatewayUsuario;
+import br.eti.tiagosousa.jsfinanceiro.persistencia.IPesquisadorDeUsuario;
 
 /**
  * @author Tiago Sousa
@@ -13,5 +14,9 @@ public class FabricaPersistencia implements IFabricaPersistencia {
     @Override
     public IGatewayUsuario getGatewayUsuario() {
         return new GatewayUsuario();
-    }    
+    }
+    
+    public IPesquisadorDeUsuario getPesquisadorDeUsuario() {
+        return new PesquisadorDeUsuario();
+    }
 }

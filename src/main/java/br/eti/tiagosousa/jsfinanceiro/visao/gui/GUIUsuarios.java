@@ -4,7 +4,11 @@ import br.eti.tiagosousa.jsfinanceiro.modelo.dominio.Usuario;
 import br.eti.tiagosousa.jsfinanceiro.modelo.dominio.constante.Constante;
 import br.eti.tiagosousa.jsfinanceiro.visao.ouvinte.OuvinteDeGUICadastroDeUsuario;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
+import java.util.Iterator;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * @author Tiago Sousa
@@ -29,22 +33,20 @@ public class GUIUsuarios extends javax.swing.JInternalFrame {
         pPesquisarUsuario = new javax.swing.JPanel();
         lUsuario = new javax.swing.JLabel();
         tfUsuario = new javax.swing.JTextField();
-        bPesquisar = new javax.swing.JButton();
+        bPesquisarUsuario = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Financeiro - Usuários");
 
         tUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Usuário", "E-mail", "Nivel", "Status"
             }
         ));
+        tUsuarios.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tUsuarios);
 
         bNovoUsuario.setText("Novo usuário");
@@ -72,7 +74,7 @@ public class GUIUsuarios extends javax.swing.JInternalFrame {
 
         lUsuario.setText("Usuário");
 
-        bPesquisar.setText("Pesquisar");
+        bPesquisarUsuario.setText("Pesquisar");
 
         javax.swing.GroupLayout pPesquisarUsuarioLayout = new javax.swing.GroupLayout(pPesquisarUsuario);
         pPesquisarUsuario.setLayout(pPesquisarUsuarioLayout);
@@ -81,7 +83,7 @@ public class GUIUsuarios extends javax.swing.JInternalFrame {
             .addGroup(pPesquisarUsuarioLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pPesquisarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bPesquisar)
+                    .addComponent(bPesquisarUsuario)
                     .addComponent(lUsuario))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(pPesquisarUsuarioLayout.createSequentialGroup()
@@ -96,7 +98,7 @@ public class GUIUsuarios extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(bPesquisar)
+                .addComponent(bPesquisarUsuario)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -156,7 +158,7 @@ public class GUIUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JButton bAlterar;
     private javax.swing.JButton bExcluir;
     private javax.swing.JButton bNovoUsuario;
-    private javax.swing.JButton bPesquisar;
+    private javax.swing.JButton bPesquisarUsuario;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lUsuario;
     private javax.swing.JPanel pPesquisarUsuario;
@@ -165,6 +167,7 @@ public class GUIUsuarios extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private GUICadastroDeUsuario guiCadastroDeUsuario;
+    private List usuarios;
     
     public void setPosicao() {
         Dimension d = this.getDesktopPane().getSize();
@@ -188,5 +191,36 @@ public class GUIUsuarios extends javax.swing.JInternalFrame {
             mensagem.append("\nMotivo: " + exc.getMessage());
             GUIMensagem.exibirMensagem(mensagem.toString(), "Financeiro - Cadastro de usuário", true);
         }
+    }
+    
+    public void exibirUsuarios(List usuarios) {
+        this.usuarios = usuarios;
+        DefaultTableModel model = (DefaultTableModel) tUsuarios.getModel();
+        this.removerLinhasDaTabela(model);
+        Iterator resultado = usuarios.iterator();
+        while (resultado.hasNext()) {
+            Usuario usuario = (Usuario) resultado.next();
+            String u = usuario.getUsuario();
+            String e = usuario.getEmail();
+            Integer n = usuario.getNivel();
+            Integer s = usuario.getStatus();
+            Object[] linha = {u, e, n, s};
+            model.addRow(linha);
+        }
+    }
+    
+    private void removerLinhasDaTabela(DefaultTableModel model){
+        while (model.getRowCount() > 0){
+            int ultimaLinha = model.getRowCount()-1;
+            model.removeRow(ultimaLinha);
+        }
+    }
+    
+    public String getUsuario() {
+        return tfUsuario.getText().trim();
+    }
+    
+    public void bPesquisarUsuarioAddActionListener(ActionListener ouvinte) {
+        bPesquisarUsuario.addActionListener(ouvinte);
     }
 }
