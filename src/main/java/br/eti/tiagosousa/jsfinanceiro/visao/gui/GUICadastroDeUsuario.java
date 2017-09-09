@@ -5,6 +5,7 @@ import br.eti.tiagosousa.jsfinanceiro.modelo.dominio.Usuario;
 import br.eti.tiagosousa.jsfinanceiro.modelo.dominio.constante.Constante;
 import br.eti.tiagosousa.jsfinanceiro.modelo.dominio.constante.NivelDoUsuario;
 import br.eti.tiagosousa.jsfinanceiro.modelo.dominio.constante.StatusDoUsuario;
+import br.eti.tiagosousa.jsfinanceiro.util.MD5;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 
@@ -15,8 +16,9 @@ import java.awt.event.ActionListener;
  */
 public class GUICadastroDeUsuario extends javax.swing.JInternalFrame {
 
-    public GUICadastroDeUsuario() {
+    public GUICadastroDeUsuario() throws Exception {
         initComponents();
+        md5 = new MD5();
         for (NivelDoUsuario nivel : NivelDoUsuario.values()) {
             cbNivel.addItem(nivel.name());
         }
@@ -37,8 +39,8 @@ public class GUICadastroDeUsuario extends javax.swing.JInternalFrame {
         lStatus = new javax.swing.JLabel();
         rbAtivo = new javax.swing.JRadioButton();
         rbInativo = new javax.swing.JRadioButton();
-        tfSenha = new javax.swing.JTextField();
         lSenha = new javax.swing.JLabel();
+        tfSenha = new javax.swing.JPasswordField();
         bGravarUsuario = new javax.swing.JButton();
         bLimpar = new javax.swing.JButton();
         bCancelar = new javax.swing.JButton();
@@ -93,8 +95,8 @@ public class GUICadastroDeUsuario extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(pDadosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lSenha)
-                            .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(25, Short.MAX_VALUE))
+                            .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         pDadosUsuarioLayout.setVerticalGroup(
             pDadosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,14 +107,14 @@ public class GUICadastroDeUsuario extends javax.swing.JInternalFrame {
                 .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(pDadosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pDadosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pDadosUsuarioLayout.createSequentialGroup()
-                        .addComponent(lEmail)
-                        .addGap(29, 29, 29))
-                    .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pDadosUsuarioLayout.createSequentialGroup()
-                        .addComponent(lSenha)
-                        .addGap(9, 9, 9)
-                        .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(pDadosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lEmail)
+                            .addComponent(lSenha))
+                        .addGap(29, 29, 29)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(pDadosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pDadosUsuarioLayout.createSequentialGroup()
@@ -159,14 +161,14 @@ public class GUICadastroDeUsuario extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(pDadosUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 9, Short.MAX_VALUE))
+                .addGap(0, 8, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pDadosUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bGravarUsuario)
                     .addComponent(bLimpar)
@@ -201,10 +203,11 @@ public class GUICadastroDeUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton rbAtivo;
     private javax.swing.JRadioButton rbInativo;
     private javax.swing.JTextField tfEmail;
-    private javax.swing.JTextField tfSenha;
+    private javax.swing.JPasswordField tfSenha;
     private javax.swing.JTextField tfUsuario;
     // End of variables declaration//GEN-END:variables
     
+    private MD5 md5;
     private Usuario usuario;
     
     public void setPosicao() {
@@ -212,7 +215,7 @@ public class GUICadastroDeUsuario extends javax.swing.JInternalFrame {
         this.setLocation(15 + (d.width - this.getSize().width) / 5, 15 + (d.height - this.getSize().height) / 5);
     }
     
-    public Usuario getUsuario() throws JsFinanceiroException {
+    public Usuario getUsuario() throws JsFinanceiroException, Exception {
         String txtUsuario = tfUsuario.getText();
         if (txtUsuario == null || txtUsuario.trim().equals("")){
             tfUsuario.requestFocus();
@@ -222,7 +225,7 @@ public class GUICadastroDeUsuario extends javax.swing.JInternalFrame {
         }
         
         usuario.setEmail(tfEmail.getText());
-        usuario.setSenha(tfSenha.getText());
+        usuario.setSenha(md5.encrypt(tfSenha.getText()));
         
         int nivel = cbNivel.getSelectedIndex();
         if (nivel == 0) {
@@ -241,12 +244,12 @@ public class GUICadastroDeUsuario extends javax.swing.JInternalFrame {
         return usuario;
     }
     
-    public void exibeDadosDoUsuario() {
+    public void exibeDadosDoUsuario() throws JsFinanceiroException {
         limparCampos();
         if (usuario.getId() != Constante.NOVO) {
             tfUsuario.setText(usuario.getUsuario());
             tfEmail.setText(usuario.getEmail());
-            tfSenha.setText(usuario.getSenha());
+            tfSenha.setText(md5.decrypt(usuario.getSenha()));
             cbNivel.setSelectedIndex(usuario.getNivel() + 1);            
             if (usuario.getStatus() == StatusDoUsuario.Ativo.ordinal()) {
                 rbAtivo.setSelected(true);
@@ -257,7 +260,7 @@ public class GUICadastroDeUsuario extends javax.swing.JInternalFrame {
         }
     }
     
-    public void setUsuario(Usuario usuario){
+    public void setUsuario(Usuario usuario) throws JsFinanceiroException{
         this.usuario = usuario;
         this.exibeDadosDoUsuario();
     }
@@ -270,6 +273,6 @@ public class GUICadastroDeUsuario extends javax.swing.JInternalFrame {
         tfUsuario.setText(null);
         tfEmail.setText(null);
         tfSenha.setText(null);
-        cbNivel.setSelectedIndex(0);        
+        cbNivel.setSelectedIndex(0);
     }
 }
